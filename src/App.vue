@@ -1,5 +1,10 @@
-<script></script>
+<script setup>
+
+</script>
 <template>
-  <el-button type="primary">haha</el-button>
+  <router-view>
+    
+  </router-view>
 </template>
-<style></style>
+<style lang="scss">
+</style>
