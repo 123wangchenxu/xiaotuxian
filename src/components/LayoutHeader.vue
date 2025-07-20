@@ -16,7 +16,7 @@ const props=defineProps(
         <li class="home">
           <RouterLink to="/">首页</RouterLink>
         </li>
-        <li v-for="(item,index) in headers" :key="index"> <RouterLink to="/">{{ item.name }}</RouterLink> </li>
+        <li v-for="(item,index) in headers" :key="index"> <RouterLink :to="`/category/${item.id}`" active-class="active">{{ item.name }}</RouterLink> </li>
       </ul>
       <div class="search">
         <i class="iconfont icon-search"></i>

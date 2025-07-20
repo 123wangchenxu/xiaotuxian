@@ -22,9 +22,6 @@ onMounted(async ()=>{
   <LayoutNav />
   <LayoutHeader :headers="headers" />
   <RouterView />
-  <div style="height:1200px;">
-
-  </div>
   <LayoutFooter />
 </template>
 <style>

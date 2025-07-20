@@ -13,10 +13,10 @@ console.log(count_store)
       <!-- 导航区域 -->
       <ul class="app-header-nav ">
         <li class="home">
-          <RouterLink to="/">首页</RouterLink>
+          <RouterLink to="/home">首页</RouterLink>
         </li>
         <li v-for="(item,index) in count_store.headers" :key="index">
-          <RouterLink to="/">{{ item.name }}</RouterLink>
+          <RouterLink :to="`/category/${item.id}`" active-class="active">{{ item.name }}</RouterLink>
         </li>
       </ul>
 
