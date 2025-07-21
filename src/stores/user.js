@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
+import { useCartStore } from "./Cart";
 export const useUserStore=defineStore('user',()=>{
     const account=ref('')
     const password=ref('')
@@ -18,6 +19,8 @@ export const useUserStore=defineStore('user',()=>{
     }
     function deleteall()
     {
+        const cart_store=useCartStore()
+        cart_store.clearall()
         account.value=''
         password.value=''
         token.value=''

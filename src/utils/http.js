@@ -30,9 +30,9 @@ httpInstance.interceptors.response.use(function (response) {
     ElMessage({type:'error',message:error.response.data.message})
     if(error.response.status===401)
     {
-        const user_store = useUserStore()
-        user_store.deleteall()
-        router.replace({path:'/login'})
+      const user_store = useUserStore()
+      user_store.deleteall()
+      router.replace({path:'/login'})
     }
     return Promise.reject(error);
 });

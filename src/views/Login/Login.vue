@@ -2,6 +2,7 @@
 import { ElMessage } from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
 import { useUserStore } from '@/stores/user';
+import { merge,getcar } from '@/apis/textapi';
 const user_store=useUserStore()
 defineOptions(
     {
@@ -11,6 +12,7 @@ defineOptions(
 import { onMounted, ref } from 'vue';
 import { login } from '@/apis/textapi';
 import { useRouter } from 'vue-router';
+import { useCartStore } from '@/stores/Cart';
 const ruleForm=ref(null)
 const ruleform=ref({
     account:'',
@@ -18,7 +20,7 @@ const ruleform=ref({
     agree:false
 })
 const router=useRouter()
-const doLogin=()=>{
+const doLogin=async()=>{
     ruleForm.value.validate(async(valid)=>{
         if(valid)
         {
@@ -28,7 +30,21 @@ const doLogin=()=>{
             const getdata=await login(user_store.account,user_store.password)
             ElMessage({type:'success',message:'登录成功'})
             user_store.gettoken(getdata.data.result.token)
-            console.log(user_store.token)
+            const cart_store=useCartStore()
+            var skuarray=[]
+            for(var i=0;i<cart_store.goods.length;i++)
+            {
+              skuarray.push({
+                skuId:cart_store.goods[i].skuId,
+                selected:cart_store.goods[i].select,
+                count:cart_store.goods[i].count
+              })
+            }
+            await merge(skuarray)
+            const getdatas=await getcar()
+            console.log(getdatas.data.result)
+            cart_store.goods=getdatas.data.result
+            console.log(cart_store)
             router.replace({path:'/home'})
         }
     })

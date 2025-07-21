@@ -6,7 +6,9 @@ import { ref } from 'vue';
 import DetailHot from '@/views/Home/Components/DetailHot.vue';
 import ImageView from '@/components/ImageView.vue';
 import XkxSku from '@/components/XtxSku/index.vue'
-
+import { ElMessage } from 'element-plus';
+import { useCartStore } from '@/stores/Cart';
+const num=ref(0)
 const first_name=ref('')
 const second_name=ref('')
 const name=ref('')
@@ -22,8 +24,36 @@ const imgUrls=ref([])
 const imgUrl=ref('')
 const hots=ref({})
 const weeks=ref({})
+const skuObj=ref({})
+const cart_store=useCartStore()
+const skuId=ref(0)
+const handleChange=()=>{
+  cart_store.changenum(skuId.value,num.value)
+  console.log(cart_store)
+}
+const changesel=()=>{
+  cart_store.selchange(skuId.value)
+}
 const xkxchange=(newValue)=>{
-  console.log(newValue)
+  skuObj.value=newValue
+  if(Object.keys(skuObj.value).length>0)
+  {
+    skuId.value=skuObj.value.skuId
+    cart_store.addCart({
+      id:result.value.id,
+      name:result.value.name,
+      picture:result.value.mainPictures[0],
+      price: result.value.price,
+      count:num.value,
+      skuId: skuObj.value.skuId,
+      attrsText:skuObj.value.specsText,
+      selected: false
+    })
+  }
+  else
+  {
+    ElMessage({type:'warning',message:"请选择规格"})
+  }
 }
 onMounted(async()=>{
     const getdata=await detailget(route.params.id)
@@ -130,10 +160,10 @@ onMounted(async()=>{
                 specs:result.specs
               }" @change="xkxchange"></XkxSku>
               <!-- 数据组件 -->
-
+              <el-input-number v-model="num" @change="handleChange" :min="0" :max="10"></el-input-number>
               <!-- 按钮组件 -->
               <div>
-                <el-button size="large" class="btn">
+                <el-button @click="changesel" size="large" class="btn">
                   加入购物车
                 </el-button>
               </div>

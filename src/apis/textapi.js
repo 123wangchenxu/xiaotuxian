@@ -86,3 +86,45 @@ export function login(acc,pwd)
             "password":pwd
     })
 }
+export function getcaradd(id,num)
+{
+    return request.post('/member/cart',{
+        skuId:id,
+        count:num
+    })
+}
+export function getcar()
+{
+    return request.get('/member/cart')
+}
+export function getdeletecar(ids)
+{
+    return request.delete('/member/cart', {
+        data:{
+            ids: ids
+        }
+    })
+}
+export function merge(skuarray)
+{   console.log(skuarray)
+    return request.post('/member/cart/merge',skuarray)
+}
+export function getpay()
+{
+    return request.get('/member/order/pre')
+}
+export function paypost(goods,addressId)
+{
+    return request.post('/member/order', {
+        "deliveryTimeType": 1,
+        "payType": 1,
+        "payChannel": 1,
+        "buyerMessage": "",
+        "goods": goods,
+        "addressId": addressId
+    })
+}
+export function payend(id)
+{
+    return request.get(`/member/order/${id}`)
+}
