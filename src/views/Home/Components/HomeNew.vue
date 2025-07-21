@@ -17,13 +17,15 @@ onMounted(async()=>{
         <HomePanel title="新鲜好物" title_inf="新鲜出炉 品质靠谱">
             <ul>
                 <li v-for="(item,index) in goods" :key="index">
-                    <img v-img-lazy="item.picture" alt="新鲜好物">
-                    <div class="desc">
-                        <span>
-                            {{ item.name }}{{ item.desc }}
-                        </span>
-                        <span>￥{{ item.price }}</span>
-                    </div>
+                    <RouterLink :to="`/detail/${item.id}`">
+                        <img v-img-lazy="item.picture" alt="新鲜好物">
+                        <div class="desc">
+                            <span>
+                                {{ item.name }}{{ item.desc }}
+                            </span>
+                            <span>￥{{ item.price }}</span>
+                        </div>
+                    </RouterLink>
                 </li>
             </ul>
         </HomePanel>

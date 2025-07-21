@@ -59,3 +59,30 @@ export function getgoodsdetail(id,field,pages)
             sortField: field
     }).value)
 }
+export function detailget(shopid)
+{
+    return request.get('/goods',{
+        params:
+        {
+            id:shopid
+        }
+    })
+}
+export function gethotb(getid,gettype,getlimit=3)
+{
+    return request.get('/goods/hot',{
+        params:
+        {
+            id:getid,
+            type:gettype,
+            limit:getlimit
+        }
+    })
+}
+export function login(acc,pwd)
+{
+    return request.post('/login',{
+            "account": acc,
+            "password":pwd
+    })
+}
